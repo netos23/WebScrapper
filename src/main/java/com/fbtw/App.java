@@ -1,19 +1,11 @@
 package com.fbtw;
 
-import com.fbtw.chrome_driver.ChromeGetter;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.FileOutputStream;
+import com.fbtw.web.PathToElements;
+import com.fbtw.web.WebExplorer;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Hello world!
@@ -43,12 +35,12 @@ public class App
         workbook.write(stream);
         stream.close();*/
 
-        ChromeGetter.startDriver();
+        /*ChromeGetter.startDriver();
         ChromeDriver driver = new ChromeDriver(ChromeGetter.getOptions());
-        int id = 1279787;
+
         driver.get("https://www.dns-shop.ru/search/?q="+id);
 
-        Wait<WebDriver> wait = new WebDriverWait(driver,TIMEOUT);
+
 
         WebElement element = driver.findElement(By.xpath("//a[@class='avail-text__link ui-link ui-link_blue ui-link_pseudolink']"));
        element.click();
@@ -68,7 +60,23 @@ public class App
         //div class="shop-type type-dnsShops"
 
 
-        System.out.println(el.getText());
+        System.out.println(el.getText());*/
+
+        WebExplorer explorer = new WebExplorer();
+        int id = 1279787;
+        explorer.openPage(PathToElements.SEQARCH_URL+id);
+        explorer.clickAndWaitByXPath(PathToElements.TABLE,1000);
+        explorer.clickByXPath(PathToElements.CHECKBOX_DNS);
+        explorer.clickByXPath(PathToElements.CHECKBOX_TCHNOPOINT);
+
+        String str = explorer.getElementInfo(PathToElements.ELEMENT_WHIS_INFO);
+
+        String s = explorer.getElementInfo(PathToElements.DNS_CODE);
+
+        System.out.println(s);
+        System.out.println(str);
+
+
     }
 
 
