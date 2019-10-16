@@ -1,84 +1,35 @@
 package com.fbtw;
 
 
-import com.fbtw.web.PathToElements;
-import com.fbtw.web.WebExplorer;
+import com.fbtw.book_utils.TableBuilder;
+import com.fbtw.book_utils.TablePatern;
+import com.fbtw.core.DataParser;
+import com.fbtw.io.PreSet;
+import com.fbtw.io.PreSetLoader;
+import com.fbtw.io.TablePaternLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
  * Hello world!
  *
  */
-public class App 
-{
-    public static final int TIMEOUT= 70;
-    public static void main( String[] args ) throws InterruptedException, IOException {
-  /*      Workbook workbook = new HSSFWorkbook();
+public class App {
+    public static final int TIMEOUT = 70;
 
-        FileOutputStream stream = new FileOutputStream("s.xls");
-
-        Sheet lis = workbook.createSheet("shit");
-
-        Row r = lis.createRow(0);
-        Cell c = r.createCell(0);
-        CellStyle style = workbook.createCellStyle();
-      //  style.setFillBackgroundColor(IndexedColors.CORAL.index);
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
 
 
-        c.setCellStyle(style);
-        c.setCellValue("hello world");
+        PreSetLoader loader = new PreSetLoader();
+       // PreSet set =  loader.readPreSet(args[0]+".preset");
+        PreSet set =  loader.readPreSet("пятница"+".preset");
+        DataParser parser = new DataParser(set);
 
-
-
-        workbook.write(stream);
-        stream.close();*/
-
-        /*ChromeGetter.startDriver();
-        ChromeDriver driver = new ChromeDriver(ChromeGetter.getOptions());
-
-        driver.get("https://www.dns-shop.ru/search/?q="+id);
-
-
-
-        WebElement element = driver.findElement(By.xpath("//a[@class='avail-text__link ui-link ui-link_blue ui-link_pseudolink']"));
-       element.click();
-
-        Thread.sleep(1000);
-
-        WebElement checkBox = driver.findElement(By.xpath("//div[@class='shop-type type-tpShops']"));
-        checkBox.click();
-        checkBox = driver.findElement(By.xpath("//div[@class='shop-type type-dnsShops']"));
-        checkBox.click();
-
-        WebElement el = driver.findElement(By.xpath("//div[@class='base-modal__container base-modal__container_size_md']"));
-
-
-        String [] str = el.getText().split("\n");
-       // div class="shop-type type-tpShops"
-        //div class="shop-type type-dnsShops"
-
-
-        System.out.println(el.getText());*/
-
-        WebExplorer explorer = new WebExplorer();
-        int id = 1279787;
-        explorer.openPage(PathToElements.SEQARCH_URL+id);
-        explorer.clickAndWaitByXPath(PathToElements.TABLE,1000);
-        explorer.clickByXPath(PathToElements.CHECKBOX_DNS);
-        explorer.clickByXPath(PathToElements.CHECKBOX_TCHNOPOINT);
-
-        String str = explorer.getElementInfo(PathToElements.ELEMENT_WHIS_INFO);
-
-        String s = explorer.getElementInfo(PathToElements.DNS_CODE);
-
-        System.out.println(s);
-        System.out.println(str);
-
-
+        parser.parse();
+        System.exit(0);
     }
-
 
 
 }
