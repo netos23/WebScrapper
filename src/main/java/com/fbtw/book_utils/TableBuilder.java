@@ -22,7 +22,7 @@ public class TableBuilder {
         for(int i=0;i<h;i++){
             rows[i] = tableSheet.createRow(i);
             for(int j=0;j<w;j++){
-                cels[i][j] = rows[i].createCell(j);
+                    cels[i][j] = rows[i].createCell(j);
             }
         }
         return this;

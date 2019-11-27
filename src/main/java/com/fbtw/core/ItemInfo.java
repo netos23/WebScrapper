@@ -59,7 +59,9 @@ public class ItemInfo {
         String name = "", address = "", count = "";
         int j = 0;
 
-        for (int i = 9; i < lines.length - 5; i++) {
+        int startI = (lines[1].contains("Все магазины"))?8:9;
+
+        for (int i = startI; i < lines.length - 5; i++) {
             switch (j) {
                 case 0:
                     name = lines[i];

@@ -79,7 +79,15 @@ public class DataParser {
     }
 
    private void fillHead(){
-        ItemInfo tmp = itemInfos.get(0);
+        int countr = 0, min = -2, temp;
+        for(int i=0;i<itemInfos.size();i++){
+            temp = itemInfos.get(i).getStoreInfos().size();
+            if(temp>min){
+                countr = i;
+                min = temp;
+            }
+        }
+        ItemInfo tmp = itemInfos.get(countr);
 
         for(int i=OFFSET_Y;i<preSet.getStoreName().size()+OFFSET_Y;i++){
             ItemInfo.StoreInfo  stores =  tmp.getStoreInfo(preSet.getStoreName().get(i-OFFSET_Y));
@@ -97,13 +105,15 @@ public class DataParser {
                 ItemInfo.StoreInfo  stores =  itemInfos.get(i-OFFSET_X).getStoreInfo(preSet.getStoreName().get(j-OFFSET_Y));
 
                 int res;
-
-                try {
-                    res = Integer.parseInt(stores.count);
-                }catch (NumberFormatException ex){
-                    res =0;
+                if(stores == null){
+                    res=0;
+                }else {
+                    try {
+                        res = Integer.parseInt(stores.count);
+                    } catch (NumberFormatException ex) {
+                        res = 0;
+                    }
                 }
-
                 tableBuilder.set(res,i,j);
             }
         }

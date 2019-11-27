@@ -34,4 +34,13 @@ public class PreSetLoader {
         out.close();
     }
 
+    public static String[] getPreSetNames(){
+        File folder = new File(".");
+        String[] strings = folder.list((folder1, name) -> name.endsWith(".preset"));
+        for(String s: strings){
+            s= s.substring(0,s.indexOf(".preset"));
+        }
+        return strings;
+    }
+
 }
